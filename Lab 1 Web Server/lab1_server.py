@@ -1,27 +1,22 @@
 #import socket module
 from socket import *
-
 import sys # In order to terminate the program
+
 serverSocket = socket(AF_INET, SOCK_STREAM)
-#Prepare a sever socket
-#Fill in start
-#Fill in end
+serverSocket.bind(('localhost', 8080))          # Bind local host and port # to socket
+serverSocket.listen(1)                          # Queue size of the # of request to wait for
 
 while True:
     #Establish the connection
     print('Ready to serve...')
-    # connectionSocket, addr = #Fill in start #Fill in end
+    connectionSocket, addr = serverSocket.accept()
     try:
-        pass
+        rawData = connectionSocket.recv(1024)   # Receiving raw bytes
+        message = rawData.decode()              # Decoding the bytes into a string
+        filename = message.split()[1]           # Splitting the message
+        f = open(filename[1:])                  # Opening the file with the message in it
 
-        # Uncomment when we are ready for message, filename, and f
-
-        #message = #Fill in start #Fill in end
-        #filename = message.split()[1]
-        #f = open(filename[1:])
-
-        # Uncomment when we are ready!
-        #outputdata = #Fill in start #Fill in end
+        outputdata =f.read()                    # Read the contents of the file
 
         #Send one HTTP header line into socket
         #Fill in start
@@ -46,5 +41,5 @@ while True:
         #Fill in start
         #Fill in end
 
-serverSocket.close()
-sys.exit()#Terminate the program after sending the corresponding data
+    serverSocket.close()
+    sys.exit() #Terminate the program after sending the corresponding data

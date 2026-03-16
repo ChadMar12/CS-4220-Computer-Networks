@@ -110,5 +110,5 @@ def ping(host, timeout=1, count=4):
     return delay
 
 
-ping("google.com")
+ping("127.0.0.1")
 #ping(host='192.0.2.1')
